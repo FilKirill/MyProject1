@@ -1,2 +1,2 @@
-# MyProject1
+# Программа для отслеживания задач
 My project on Yandex lyceum
