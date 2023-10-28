@@ -240,6 +240,13 @@ class Adding_entry(QMainWindow):
         self.comboBox.addItem("Высокая")
 
 
+class Main_screen(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        f = io.StringIO(template2)
+        uic.loadUi(f, self)
+
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = Adding_entry()
