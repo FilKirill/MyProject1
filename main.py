@@ -295,6 +295,13 @@ class Main_screen(QMainWindow):
         self.w2.show()
 
 
+class Table_window(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        f = io.StringIO(template3)
+        uic.loadUi(f, self)
+
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = Main_screen()
