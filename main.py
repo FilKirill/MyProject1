@@ -326,6 +326,12 @@ class Table_window(QMainWindow):
         super().__init__()
         f = io.StringIO(template3)
         uic.loadUi(f, self)
+        self.pushButton.clicked.connect(self.go_over_Main_screen)
+
+    def go_over_Main_screen(self):
+        self.w2 = Main_screen()
+        self.w2.show()
+        self.close()
 
 
 if __name__ == '__main__':
