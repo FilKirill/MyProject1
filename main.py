@@ -289,10 +289,15 @@ class Main_screen(QMainWindow):
         f = io.StringIO(template2)
         uic.loadUi(f, self)
         self.pushButton_2.clicked.connect(self.show_Adding_entry)
+        self.pushButton.clicked.connect(self.show_Table_window)
 
     def show_Adding_entry(self):
         self.w2 = Adding_entry()
         self.w2.show()
+
+    def show_Table_window(self):
+        self.w3 = Table_window()
+        self.w3.show()
 
 
 class Table_window(QMainWindow):
