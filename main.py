@@ -152,3 +152,6 @@ class Adding_entry(QMainWindow):
         super().__init__()
         f = io.StringIO(template)
         uic.loadUi(f, self)
+        self.comboBox.addItem("Низкая")
+        self.comboBox.addItem("Средняя")
+        self.comboBox.addItem("Высокая")
