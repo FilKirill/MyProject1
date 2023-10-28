@@ -248,11 +248,24 @@ template3 = '''<?xml version="1.0" encoding="UTF-8"?>
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
-      <x>15</x>
+      <x>5</x>
       <y>1</y>
-      <width>681</width>
-      <height>451</height>
+      <width>691</width>
+      <height>421</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>420</y>
+      <width>261</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Вернуться на главный экран</string>
     </property>
    </widget>
   </widget>
@@ -281,6 +294,12 @@ class Adding_entry(QMainWindow):
         self.comboBox.addItem("Низкая")
         self.comboBox.addItem("Средняя")
         self.comboBox.addItem("Высокая")
+        self.return_home_screen.clicked.connect(self.show_Main_screen)
+
+    def show_Main_screen(self):
+        self.w2 = Main_screen()
+        self.w2.show()
+        self.close()
 
 
 class Main_screen(QMainWindow):
@@ -294,10 +313,12 @@ class Main_screen(QMainWindow):
     def show_Adding_entry(self):
         self.w2 = Adding_entry()
         self.w2.show()
+        self.close()
 
     def show_Table_window(self):
         self.w3 = Table_window()
         self.w3.show()
+        self.close()
 
 
 class Table_window(QMainWindow):
