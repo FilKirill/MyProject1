@@ -245,10 +245,15 @@ class Main_screen(QMainWindow):
         super().__init__()
         f = io.StringIO(template2)
         uic.loadUi(f, self)
+        self.pushButton_2.clicked.connect(self.show_Adding_entry)
+
+    def show_Adding_entry(self):
+        self.w2 = Adding_entry()
+        self.w2.show()
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = Adding_entry()
+    ex = Main_screen()
     ex.show()
     sys.exit(app.exec_())
