@@ -148,3 +148,7 @@ template = """<?xml version="1.0" encoding="UTF-8"?>
 
 
 class Adding_entry(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        f = io.StringIO(template)
+        uic.loadUi(f, self)
