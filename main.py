@@ -307,6 +307,7 @@ class Adding_entry(QMainWindow):
         priority_level = self.comboBox.currentText()
 
 
+
 class Main_screen(QMainWindow):
     def __init__(self):
         super().__init__()
