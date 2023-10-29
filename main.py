@@ -303,6 +303,7 @@ class Adding_entry(QMainWindow):
         self.w2.show()
         self.close()
 
+
     def pop_up_windows(self):
         question = QMessageBox()
         question.setWindowTitle('Запись')
