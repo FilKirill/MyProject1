@@ -304,6 +304,7 @@ class Adding_entry(QMainWindow):
         self.close()
 
     def adding_value_to_table(self):
+        text = self.lineEdit.text()
         priority_level = self.comboBox.currentText()
         data = self.dateEdit.dateTime().toString()
 
