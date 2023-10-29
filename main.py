@@ -307,6 +307,8 @@ class Adding_entry(QMainWindow):
         question = QMessageBox()
         question.setWindowTitle('Запись')
         question.setText('Вы точно хотите добавить запись?')
+        question.setIcon(QMessageBox.Information)
+
 
 
 
