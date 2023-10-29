@@ -291,15 +291,19 @@ class Adding_entry(QMainWindow):
         super().__init__()
         f = io.StringIO(template)
         uic.loadUi(f, self)
-        self.comboBox.addItem("Низкая")
-        self.comboBox.addItem("Средняя")
-        self.comboBox.addItem("Высокая")
+        self.comboBox.addItem("Низкий")
+        self.comboBox.addItem("Средний")
+        self.comboBox.addItem("Высокий")
+        self.text = self.lineEdit.text()
         self.return_home_screen.clicked.connect(self.show_Main_screen)
+        self.add_an_entry.clicked.connect(self.entry)
 
     def show_Main_screen(self):
         self.w2 = Main_screen()
         self.w2.show()
         self.close()
+
+    def adding_value_to_table(self):
 
 
 class Main_screen(QMainWindow):
