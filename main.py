@@ -304,6 +304,7 @@ class Adding_entry(QMainWindow):
         self.close()
 
     def adding_value_to_table(self):
+        priority_level = self.comboBox.currentText()
 
 
 class Main_screen(QMainWindow):
