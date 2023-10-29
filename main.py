@@ -308,6 +308,13 @@ class Adding_entry(QMainWindow):
         question.setWindowTitle('Запись')
         question.setText('Вы точно хотите добавить запись?')
         question.setIcon(QMessageBox.Information)
+        question.setStandardButtons(QMessageBox.Reset | QMessageBox.Ok | QMessageBox.Cancel)
+        question.buttonClicked.connect(self.processing_button_actions)
+        question.exec_()
+
+    def processing_button_actions(self):
+        pass
+
 
 
 
