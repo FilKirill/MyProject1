@@ -312,11 +312,11 @@ class Adding_entry(QMainWindow):
         question.buttonClicked.connect(self.processing_button_actions)
         question.exec_()
 
-    def processing_button_actions(self):
-        pass
-
-
-
+    def processing_button_actions(self, btn):
+        if btn.text() == 'Ok':
+            pass
+        elif btn.text() == 'Reset':
+            self.lineEdit.setText('')
 
 
 class Main_screen(QMainWindow):
