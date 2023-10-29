@@ -3,7 +3,7 @@ import io
 import datetime
 
 from PyQt5 import uic  # Импортируем uic
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 
 template = """<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
@@ -296,17 +296,14 @@ class Adding_entry(QMainWindow):
         self.comboBox.addItem("Высокий")
         self.text = self.lineEdit.text()
         self.return_home_screen.clicked.connect(self.show_Main_screen)
-        self.add_an_entry.clicked.connect(self.entry)
+        self.add_an_entry.clicked.connect(self.pop_up_windows)
 
     def show_Main_screen(self):
         self.w2 = Main_screen()
         self.w2.show()
         self.close()
 
-    def adding_value_to_table(self):
-        text = self.lineEdit.text()
-        priority_level = self.comboBox.currentText()
-        data = self.dateEdit.dateTime().toString()
+    def pop_up_windows(self):
 
 
 
