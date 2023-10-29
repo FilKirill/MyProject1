@@ -304,6 +304,9 @@ class Adding_entry(QMainWindow):
         self.close()
 
     def pop_up_windows(self):
+        question = QMessageBox()
+        question.setWindowTitle('Запись')
+        question.setText('Вы точно хотите добавить запись?')
 
 
 
