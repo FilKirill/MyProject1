@@ -577,6 +577,11 @@ password_login_request_window = '''<?xml version="1.0" encoding="UTF-8"?>
  <connections/>
 </ui>'''
 
+class class_user_registration(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        f = io.StringIO(registration_window)
+        uic.loadUi(f, self)
 
 class class_password_login_request(QMainWindow):
     def __init__(self):
@@ -652,6 +657,6 @@ class Table_window(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = class_password_login_request()
+    ex = class_user_registration()
     ex.show()
     sys.exit(app.exec_())
