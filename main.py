@@ -437,6 +437,9 @@ password_login_request_window = '''<?xml version="1.0" encoding="UTF-8"?>
  <connections/>
 </ui>'''
 
+
+class class_password_login_request(QMainWindow):
+
 class Adding_entry(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -453,7 +456,6 @@ class Adding_entry(QMainWindow):
         self.w2 = Main_screen()
         self.w2.show()
         self.close()
-
 
     def pop_up_windows(self):
         question = QMessageBox()
