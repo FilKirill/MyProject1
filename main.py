@@ -5,7 +5,7 @@ import datetime
 from PyQt5 import uic  # Импортируем uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 
-template = """<?xml version="1.0" encoding="UTF-8"?>
+window_adding_record = """<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
@@ -14,7 +14,7 @@ template = """<?xml version="1.0" encoding="UTF-8"?>
     <x>0</x>
     <y>0</y>
     <width>646</width>
-    <height>433</height>
+    <height>422</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -47,7 +47,7 @@ template = """<?xml version="1.0" encoding="UTF-8"?>
      <string>Выберите уровень приоритета</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox">
+   <widget class="QComboBox" name="priority">
     <property name="geometry">
      <rect>
       <x>250</x>
@@ -70,7 +70,7 @@ template = """<?xml version="1.0" encoding="UTF-8"?>
      <string>Напишите запись</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="text_entry">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -146,7 +146,7 @@ template = """<?xml version="1.0" encoding="UTF-8"?>
  <connections/>
 </ui>"""
 
-template2 = '''<?xml version="1.0" encoding="UTF-8"?>
+main_window = '''<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
@@ -229,7 +229,7 @@ border-color: rgb(255, 255, 255);</string>
  <connections/>
 </ui>'''
 
-template3 = '''<?xml version="1.0" encoding="UTF-8"?>
+table_window = '''<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
@@ -285,16 +285,167 @@ template3 = '''<?xml version="1.0" encoding="UTF-8"?>
  <connections/>
 </ui>'''
 
+password_login_request_window = '''<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>364</width>
+    <height>292</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>50</y>
+      <width>321</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Логин                </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="login_input"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Пароль              </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="entering_password"/>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Вход&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_3">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>250</y>
+      <width>331</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Ещё не зарегестрированы ?</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="text">
+        <string>Регистрация</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QPushButton" name="entrance">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>200</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Войти</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>200</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/newPrefix/asd.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>170</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Код с картинки</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="input_cod">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>170</y>
+      <width>231</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources>
+  <include location="капча.webp"/>
+ </resources>
+ <connections/>
+</ui>'''
 
 class Adding_entry(QMainWindow):
     def __init__(self):
         super().__init__()
-        f = io.StringIO(template)
+        f = io.StringIO(window_adding_record)
         uic.loadUi(f, self)
-        self.comboBox.addItem("Низкий")
-        self.comboBox.addItem("Средний")
-        self.comboBox.addItem("Высокий")
-        self.text = self.lineEdit.text()
+        self.priority.addItem("Низкий")
+        self.priority.addItem("Средний")
+        self.priority.addItem("Высокий")
+        self.text = self.text_entry.text()
         self.return_home_screen.clicked.connect(self.show_Main_screen)
         self.add_an_entry.clicked.connect(self.pop_up_windows)
 
@@ -323,7 +474,7 @@ class Adding_entry(QMainWindow):
 class Main_screen(QMainWindow):
     def __init__(self):
         super().__init__()
-        f = io.StringIO(template2)
+        f = io.StringIO(main_window)
         uic.loadUi(f, self)
         self.pushButton_2.clicked.connect(self.show_Adding_entry)
         self.pushButton.clicked.connect(self.show_Table_window)
@@ -342,7 +493,7 @@ class Main_screen(QMainWindow):
 class Table_window(QMainWindow):
     def __init__(self):
         super().__init__()
-        f = io.StringIO(template3)
+        f = io.StringIO(table_window)
         uic.loadUi(f, self)
         self.pushButton.clicked.connect(self.go_over_Main_screen)
 
