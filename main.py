@@ -3,7 +3,6 @@ import io
 import datetime
 import sqlite3
 
-
 from PyQt5 import uic  # Импортируем uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 
@@ -533,16 +532,13 @@ class class_user_registration(QMainWindow):
         super().__init__()
         f = io.StringIO(registration_window)
         uic.loadUi(f, self)
-        conn = sqlite3.connect('password.db')
-        cur = conn.cursor()
-        cur.execute("""CREATE TABLE IF NOT EXISTS users(
-           name TEXT,
-           login TEXT,
-           password TEXT);
-        """)
-        cur.execute("""INSERT INTO users(name, login, password) 
-           VALUES('Admin', '12345', 'qwerty');""")
-        conn.commit()
+        self.button_complete_registration.clicked.connect(self.registration_completed)
+
+    def registration_completed(self):
+        self.name = self.name_edit.text()
+        self.login = self.login_edit.text()
+        self.password = self.password_edit.text()
+        self.replay_password = self.replay_password_edit.text()
 
 
 class class_password_login_request(QMainWindow):
