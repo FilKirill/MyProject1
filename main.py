@@ -382,85 +382,93 @@ password_login_request_window = '''<?xml version="1.0" encoding="UTF-8"?>
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>364</width>
-    <height>292</height>
+    <width>302</width>
+    <height>201</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="verticalLayoutWidget">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>50</y>
-      <width>321</width>
-      <height>111</height>
+      <x>0</x>
+      <y>0</y>
+      <width>301</width>
+      <height>201</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_4">
-       <item>
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>Логин                 </string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="login_input"/>
-       </item>
-      </layout>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Вход&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
      </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
-       <item>
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>Пароль               </string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="entering_password"/>
-       </item>
-      </layout>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>Имя</string>
+       </property>
+      </widget>
      </item>
-    </layout>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>10</y>
-      <width>71</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Вход&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget_3">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>250</y>
-      <width>331</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_5">
-     <item>
+     <item row="1" column="1" colspan="2">
+      <widget class="QLineEdit" name="name_button"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Логин                 </string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1" colspan="2">
+      <widget class="QLineEdit" name="login_input"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Пароль               </string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1" colspan="2">
+      <widget class="QLineEdit" name="entering_password"/>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string> Код с картинки</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1" colspan="2">
+      <widget class="QLineEdit" name="input_cod"/>
+     </item>
+     <item row="5" column="0">
+      <widget class="QPushButton" name="login_button">
+       <property name="text">
+        <string>Войти</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1" colspan="2">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/newPrefix/asd.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0" colspan="2">
       <widget class="QLabel" name="label_4">
        <property name="text">
         <string>Ещё не зарегестрированы ?</string>
        </property>
       </widget>
      </item>
-     <item>
+     <item row="6" column="2">
       <widget class="QPushButton" name="registration_button">
        <property name="text">
         <string>Регистрация</string>
@@ -468,55 +476,6 @@ password_login_request_window = '''<?xml version="1.0" encoding="UTF-8"?>
       </widget>
      </item>
     </layout>
-   </widget>
-   <widget class="QPushButton" name="login_button">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>210</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Войти</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_5">
-    <property name="geometry">
-     <rect>
-      <x>160</x>
-      <y>180</y>
-      <width>131</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/newPrefix/asd.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_6">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>160</y>
-      <width>81</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string> Код с картинки</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="input_cod">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>160</y>
-      <width>231</width>
-      <height>20</height>
-     </rect>
-    </property>
    </widget>
   </widget>
  </widget>
@@ -575,6 +534,13 @@ class class_password_login_request(QMainWindow):
         f = io.StringIO(password_login_request_window)
         uic.loadUi(f, self)
         self.registration_button.clicked.connect(self.open_registration_window)
+        self.login_button.clicked.connect(self.login_password_verification)
+
+    def login_password_verification(self):
+        name = self.name_button.text()
+        login = self.login_input.text()
+        password = self.entering_password.text()
+        cod = self.input_cod.text()
 
     def open_registration_window(self):
         self.w2 = class_user_registration()
