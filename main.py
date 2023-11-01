@@ -552,6 +552,21 @@ class class_user_registration(QMainWindow):
                                    VALUES(?, ?, ?);""", (self.name, self.login, self.password))
             conn.commit()
             question.exec_()
+            self.w2 = class_password_login_request()
+            self.w2.show()
+            self.close()
+
+        else:
+            question = QMessageBox()
+            question.setWindowTitle('Запись')
+            question.setText('Вы неправильно ввели логин или пароль')
+            question.setIcon(QMessageBox.Information)
+            question.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            self.name_edit.setText('')
+            self.login_edit.setText('')
+            self.password_edit.setText('')
+            self.replay_password_edit.setText('')
+            question.exec_()
 
 
 class class_password_login_request(QMainWindow):
