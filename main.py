@@ -541,6 +541,15 @@ class class_password_login_request(QMainWindow):
         login = self.login_input.text()
         password = self.entering_password.text()
         cod = self.input_cod.text()
+        con = sqlite3.connect('password.db')
+        cur = con.cursor()
+        c = 0
+        # Выполнение запроса и получение всех результатов
+        result = cur.execute("""SELECT * From users""").fetchall()
+        for i in result:
+            if login in i and password in i and name in i:
+                c += 1
+        con.close()
 
     def open_registration_window(self):
         self.w2 = class_user_registration()
