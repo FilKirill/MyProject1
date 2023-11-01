@@ -550,6 +550,10 @@ class class_password_login_request(QMainWindow):
             if login in i and password in i and name in i:
                 c += 1
         con.close()
+        if cod == 'W68HP' and c > 0:
+            self.w2 = Main_screen()
+            self.w2.show()
+            self.close()
 
     def open_registration_window(self):
         self.w2 = class_user_registration()
