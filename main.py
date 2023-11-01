@@ -540,6 +540,19 @@ class class_user_registration(QMainWindow):
         self.password = self.password_edit.text()
         self.replay_password = self.replay_password_edit.text()
 
+        if self.name != '' and self.login != '' and self.password != '' and self.password == self.replay_password:
+            question = QMessageBox()
+            question.setWindowTitle('регистрация')
+            question.setText('Вы успешно зарегистрировались')
+            question.setIcon(QMessageBox.Information)
+            question.setStandardButtons(QMessageBox.Ok)
+            conn = sqlite3.connect('password.db')
+            cur = conn.cursor()
+            cur.execute("""INSERT INTO users(name, login, password) 
+                                   VALUES(?, ?, ?);""", (self.name, self.login, self.password))
+            conn.commit()
+            question.exec_()
+
 
 class class_password_login_request(QMainWindow):
     def __init__(self):
