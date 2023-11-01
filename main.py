@@ -533,6 +533,16 @@ class class_user_registration(QMainWindow):
         super().__init__()
         f = io.StringIO(registration_window)
         uic.loadUi(f, self)
+        conn = sqlite3.connect('password.db')
+        cur = conn.cursor()
+        cur.execute("""CREATE TABLE IF NOT EXISTS users(
+           name TEXT,
+           login TEXT,
+           password TEXT);
+        """)
+        cur.execute("""INSERT INTO users(name, login, password) 
+           VALUES('Admin', '12345', 'qwerty');""")
+        conn.commit()
 
 
 class class_password_login_request(QMainWindow):
