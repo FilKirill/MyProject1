@@ -554,6 +554,17 @@ class class_password_login_request(QMainWindow):
             self.w2 = Main_screen()
             self.w2.show()
             self.close()
+        else:
+            question = QMessageBox()
+            question.setWindowTitle('Запись')
+            question.setText('Вы неправильно ввели логин или пароль')
+            question.setIcon(QMessageBox.Information)
+            question.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            self.name_button.setText('')
+            self.login_input.setText('')
+            self.entering_password.setText('')
+            self.input_cod.setText('')
+            question.exec_()
 
     def open_registration_window(self):
         self.w2 = class_user_registration()
