@@ -14,51 +14,24 @@ registration_window = '''<?xml version="1.0" encoding="UTF-8"?>
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>371</width>
-    <height>223</height>
+    <width>384</width>
+    <height>224</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>10</x>
       <y>0</y>
       <width>371</width>
       <height>221</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Регистрация&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Имя      &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="name_edit"/>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_4">
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Логин&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="login_edit"/>
-     </item>
      <item row="3" column="0">
       <widget class="QLabel" name="label_2">
        <property name="text">
@@ -79,7 +52,41 @@ registration_window = '''<?xml version="1.0" encoding="UTF-8"?>
      <item row="4" column="1">
       <widget class="QLineEdit" name="replay_password_edit"/>
      </item>
-     <item row="5" column="0" colspan="2">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Регистрация&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Имя      &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="login_edit"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="name_edit"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Логин&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QPushButton" name="come_back">
+       <property name="text">
+        <string>Вернуться назад</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
       <widget class="QPushButton" name="button_complete_registration">
        <property name="text">
         <string> Завершить регистрацию</string>
@@ -382,21 +389,21 @@ password_login_request_window = '''<?xml version="1.0" encoding="UTF-8"?>
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>302</width>
-    <height>201</height>
+    <width>424</width>
+    <height>233</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>301</width>
-      <height>201</height>
+      <width>421</width>
+      <height>231</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
@@ -457,7 +464,10 @@ password_login_request_window = '''<?xml version="1.0" encoding="UTF-8"?>
      <item row="5" column="1" colspan="2">
       <widget class="QLabel" name="label_5">
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/newPrefix/asd.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>asd.jpg</pixmap>
        </property>
       </widget>
      </item>
@@ -479,9 +489,7 @@ password_login_request_window = '''<?xml version="1.0" encoding="UTF-8"?>
    </widget>
   </widget>
  </widget>
- <resources>
-  <include location="капча.webp"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>'''
 
@@ -492,6 +500,12 @@ class class_user_registration(QMainWindow):
         f = io.StringIO(registration_window)
         uic.loadUi(f, self)
         self.button_complete_registration.clicked.connect(self.registration_completed)
+        self.come_back.clicked.connect(self.fun_come_back)
+
+    def fun_come_back(self):
+        self.w2 = class_password_login_request()
+        self.w2.show()
+        self.close()
 
     def registration_completed(self):
         self.name = self.name_edit.text()
@@ -573,10 +587,11 @@ class class_password_login_request(QMainWindow):
 
 
 class Adding_entry(QMainWindow):
-    def __init__(self):
+    def __init__(self, windows):
         super().__init__()
         f = io.StringIO(window_adding_record)
         uic.loadUi(f, self)
+        self.windows = windows
         self.priority.addItem("Низкий")
         self.priority.addItem("Средний")
         self.priority.addItem("Высокий")
@@ -599,8 +614,12 @@ class Adding_entry(QMainWindow):
         question.exec_()
 
     def processing_button_actions(self, btn):
+        self.text = self.text_entry.text()
+        self.prioritet = self.priority.currentText()
+        self.data = self.dateEdit.dateTime()
         if btn.text() == 'Ok':
-            pass
+            print('12')
+            self.windows.temp = [self.text, self.prioritet, self.data]
         elif btn.text() == 'Reset':
             self.lineEdit.setText('')
 
@@ -610,25 +629,29 @@ class Main_screen(QMainWindow):
         super().__init__()
         f = io.StringIO(main_window)
         uic.loadUi(f, self)
+        print('main')
+        self.temp = []
         self.pushButton_2.clicked.connect(self.show_Adding_entry)
         self.pushButton.clicked.connect(self.show_Table_window)
 
     def show_Adding_entry(self):
-        self.w2 = Adding_entry()
+        self.w2 = Adding_entry(self.temp)
         self.w2.show()
         self.close()
 
     def show_Table_window(self):
-        self.w3 = Table_window()
+        self.w3 = Table_window(self.temp)
         self.w3.show()
         self.close()
 
 
 class Table_window(QMainWindow):
-    def __init__(self):
+    def __init__(self, temp):
         super().__init__()
+        print('table')
         f = io.StringIO(table_window)
         uic.loadUi(f, self)
+        print(temp)
         self.pushButton.clicked.connect(self.go_over_Main_screen)
 
     def go_over_Main_screen(self):
