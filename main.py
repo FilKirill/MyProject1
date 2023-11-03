@@ -604,6 +604,16 @@ class Main_screen(QMainWindow):
         category = self.category.text()
         task = self.task.text()
         date = self.calendarWidget.selectedDate().getDate()
+        print(task)
+        if category == '' or task == '':
+            question = QMessageBox()
+            question.setWindowTitle('Запись')
+            question.setText('Вы ввели не все данные')
+            question.setIcon(QMessageBox.Information)
+            question.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            question.exec_()
+        else:
+            print('OK')
 
 
 if __name__ == '__main__':
