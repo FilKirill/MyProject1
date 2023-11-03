@@ -600,6 +600,7 @@ class Main_screen(QMainWindow):
     def fun_add_an_entry(self):
         priority = self.priority.currentText()
         category = self.category.text()
+        task = self.task.text()
 
 
 if __name__ == '__main__':
