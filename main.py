@@ -599,9 +599,7 @@ class Main_screen(QMainWindow):
 
     def fun_add_an_entry(self):
         priority = self.priority.currentText()
-
-
-
+        category = self.category.text()
 
 
 if __name__ == '__main__':
