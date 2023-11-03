@@ -3,7 +3,7 @@ import io
 import datetime
 import sqlite3
 from PyQt5 import uic  # Импортируем uic
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QLineEdit
 
 registration_window = '''<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
@@ -595,6 +595,8 @@ class Main_screen(QMainWindow):
         self.priority.addItem("Низкий")
         self.priority.addItem("Средний")
         self.priority.addItem("Высокий")
+        self.category.setPlaceholderText('Например работа')
+        self.task.setPlaceholderText('Например сделать проект')
         self.add_an_entry.clicked.connect(self.fun_add_an_entry)
 
     def fun_add_an_entry(self):
