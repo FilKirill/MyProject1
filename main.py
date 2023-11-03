@@ -601,6 +601,7 @@ class Main_screen(QMainWindow):
         priority = self.priority.currentText()
         category = self.category.text()
         task = self.task.text()
+        date = self.calendarWidget.selectedDate().getDate()
 
 
 if __name__ == '__main__':
