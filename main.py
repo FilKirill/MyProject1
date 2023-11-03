@@ -592,10 +592,18 @@ class Main_screen(QMainWindow):
         super().__init__()
         f = io.StringIO(main_window)
         uic.loadUi(f, self)
+        self.priority.addItem("Низкий")
+        self.priority.addItem("Средний")
+        self.priority.addItem("Высокий")
+        self.add_an_entry.clicked.connect(self.fun_add_an_entry)
+
+    def fun_add_an_entry(self):
+        print('1')
+
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = class_password_login_request()
+    ex = Main_screen()
     ex.show()
     sys.exit(app.exec_())
