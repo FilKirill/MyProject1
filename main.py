@@ -598,7 +598,9 @@ class Main_screen(QMainWindow):
         self.add_an_entry.clicked.connect(self.fun_add_an_entry)
 
     def fun_add_an_entry(self):
-        print('1')
+        priority = self.priority.currentText()
+
+
 
 
 
