@@ -606,6 +606,11 @@ class Main_screen(QMainWindow):
         self.priority_combo.addItem("Низкий")
         self.priority_combo.addItem("Средний")
         self.priority_combo.addItem("Высокий")
+        self.sorting.addItem('Без сортировки')
+        self.sorting.addItem('По лексикографическому порядку')
+        self.sorting.addItem('По категориям')
+        self.sorting.addItem('По приоритету')
+        self.sorting.addItem('По кол-ву дней до дедлайна')
         self.category_edit.setPlaceholderText('Например работа')
         self.task_edit.setPlaceholderText('Например сделать проект')
         self.add_an_entry.clicked.connect(self.fun_add_an_entry)
@@ -617,7 +622,6 @@ class Main_screen(QMainWindow):
             data = []
             for row in reader:
                 data.append(row)
-            print(data)
             self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
             self.tableWidget.setRowCount(len(data))
             self.tableWidget.setColumnCount(len(data[0]))
