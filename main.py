@@ -611,6 +611,7 @@ class Main_screen(QMainWindow):
         self.sorting.addItem('По категориям')
         self.sorting.addItem('По приоритету')
         self.sorting.addItem('По кол-ву дней до дедлайна')
+        self.setWindowTitle('Планировщик')
         self.category_edit.setPlaceholderText('Например работа')
         self.task_edit.setPlaceholderText('Например сделать проект')
         self.add_an_entry.clicked.connect(self.fun_add_an_entry)
