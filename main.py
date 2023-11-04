@@ -5,7 +5,7 @@ import csv
 from datetime import datetime, date
 import sqlite3
 from PyQt5 import uic  # Импортируем uic
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QLineEdit
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QLineEdit, QTableWidgetItem, QHeaderView
 
 registration_window = '''<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
@@ -609,6 +609,23 @@ class Main_screen(QMainWindow):
         self.category_edit.setPlaceholderText('Например работа')
         self.task_edit.setPlaceholderText('Например сделать проект')
         self.add_an_entry.clicked.connect(self.fun_add_an_entry)
+        self.updateButton.clicked.connect(self.create_table)
+
+    def create_table(self):
+        with open('classmates.csv', encoding='utf-8') as csvfile:
+            reader = csv.reader(csvfile, delimiter=',')
+            data = []
+            for row in reader:
+                data.append(row)
+            print(data)
+            self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+            self.tableWidget.setRowCount(len(data))
+            self.tableWidget.setColumnCount(len(data[0]))
+            self.tableWidget.setHorizontalHeaderLabels(data[0])
+            for i in range(1, len(data)):
+                for j in range(len(data[i])):
+                    item = QTableWidgetItem(data[i][j])
+                    self.tableWidget.setItem(i - 1, j, item)
 
     def fun_add_an_entry(self):
         self.priority = self.priority_combo.currentText()
@@ -645,6 +662,6 @@ class Main_screen(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = class_password_login_request()
+    ex = Main_screen()
     ex.show()
     sys.exit(app.exec_())
