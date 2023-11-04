@@ -618,26 +618,41 @@ class Main_screen(QMainWindow):
         self.add_an_entry.clicked.connect(self.fun_add_an_entry)
         self.updateButton.clicked.connect(self.create_table)
         self.clear_table.clicked.connect(self.fun_clear_table)
+        self.delete_task.clicked.connect(self.fun_delete_task)
+
+    def fun_delete_task(self):
+        row = self.tableWidget.currentRow()
+        if row <= -1:
+            question = QMessageBox()
+            question.setWindowTitle('Система')
+            question.setText('Чтобы удалить запись нажмите на название задачи')
+            question.setIcon(QMessageBox.Information)
+            question.setStandardButtons(QMessageBox.Ok)
+            question.exec_()
+        if row > -1:
+            self.tableWidget.removeRow(row)
+            self.tableWidget.selectionModel().clearCurrentIndex()
 
     def fun_clear_table(self):
-        file_path = "classmates.csv"
+        file_path = "records.csv"
         if os.path.exists(file_path):
             os.remove(file_path)
 
     def create_table(self):
         self.sort = self.sorting.currentText()
-        file_path = "classmates.csv"
+        file_path = "records.csv"
         if not (os.path.exists(file_path)):
-            with open("classmates.csv", mode="a", encoding='utf-8') as w_file:
+            with open("records.csv", mode="a", encoding='utf-8') as w_file:
                 file_writer = csv.writer(w_file, delimiter=",", lineterminator="\r")
                 file_writer.writerow(["Задача", "Категория", "Приоритет", "Кол-во дней до дедлайна"])
                 self.tableWidget.setRowCount(0)
 
-        with open('classmates.csv', mode='r', encoding='utf-8') as csvfile:
+        with open('records.csv', mode='r', encoding='utf-8') as csvfile:
             reader = csv.reader(csvfile, delimiter=',')
             data = []
             for row in reader:
                 data.append(row)
+            print(data)
             self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
             self.tableWidget.setRowCount(len(data))
             self.tableWidget.setColumnCount(len(data[0]))
@@ -704,7 +719,7 @@ class Main_screen(QMainWindow):
 
     def processing_button_actions(self, btn):
         if btn.text() == 'OK':
-            with open("classmates.csv", mode='a', encoding='utf-8') as w_file:
+            with open("records.csv", mode='a', encoding='utf-8') as w_file:
                 file_writer = csv.writer(w_file, delimiter=",", lineterminator="\r")
                 file_writer.writerow([self.task, self.category, self.priority, self.difference_days])
         self.category_edit.setText('')
