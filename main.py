@@ -1,6 +1,8 @@
 import sys
 import io
 import datetime
+import csv
+from datetime import datetime, date
 import sqlite3
 from PyQt5 import uic  # Импортируем uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QLineEdit
@@ -559,7 +561,6 @@ class class_password_login_request(QMainWindow):
         con = sqlite3.connect('password.db')
         cur = con.cursor()
         c = 0
-        # Выполнение запроса и получение всех результатов
         result = cur.execute("""SELECT * From users""").fetchall()
         for i in result:
             if login in i and password in i and name in i:
@@ -603,8 +604,8 @@ class Main_screen(QMainWindow):
         priority = self.priority.currentText()
         category = self.category.text()
         task = self.task.text()
-        date = self.calendarWidget.selectedDate().getDate()
-        print(task)
+        data = self.calendarWidget.selectedDate().getDate()
+        data = (date(data[0], data[1], data[2]))
         if category == '' or task == '':
             question = QMessageBox()
             question.setWindowTitle('Запись')
@@ -613,7 +614,11 @@ class Main_screen(QMainWindow):
             question.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             question.exec_()
         else:
-            print('OK')
+            today_date = date.today()
+            difference_days = (data - today_date).days
+            with open("classmates.csv", mode='a', encoding='utf-8') as w_file:
+                file_writer = csv.writer(w_file, delimiter=",", lineterminator="\r")
+                file_writer.writerow([task, category, priority, difference_days])
 
 
 if __name__ == '__main__':
