@@ -4,6 +4,7 @@ import datetime
 import csv
 from datetime import datetime, date
 import sqlite3
+import os
 from PyQt5 import uic  # Импортируем uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QLineEdit, QTableWidgetItem, QHeaderView
 
@@ -319,7 +320,7 @@ background-color: rgb(85, 119, 134);</string>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="clear_table">
          <property name="styleSheet">
           <string notr="true">background-color: rgb(85, 119, 134);</string>
          </property>
@@ -616,9 +617,22 @@ class Main_screen(QMainWindow):
         self.task_edit.setPlaceholderText('Например сделать проект')
         self.add_an_entry.clicked.connect(self.fun_add_an_entry)
         self.updateButton.clicked.connect(self.create_table)
+        self.clear_table.clicked.connect(self.fun_clear_table)
+
+    def fun_clear_table(self):
+        file_path = "classmates.csv"
+        if os.path.exists(file_path):
+            os.remove(file_path)
 
     def create_table(self):
         self.sort = self.sorting.currentText()
+        file_path = "classmates.csv"
+        if not (os.path.exists(file_path)):
+            with open("classmates.csv", mode="a", encoding='utf-8') as w_file:
+                file_writer = csv.writer(w_file, delimiter=",", lineterminator="\r")
+                file_writer.writerow(["Задача", "Категория", "Приоритет", "Кол-во дней до дедлайна"])
+                self.tableWidget.setRowCount(0)
+
         with open('classmates.csv', mode='r', encoding='utf-8') as csvfile:
             reader = csv.reader(csvfile, delimiter=',')
             data = []
@@ -628,10 +642,12 @@ class Main_screen(QMainWindow):
             self.tableWidget.setRowCount(len(data))
             self.tableWidget.setColumnCount(len(data[0]))
             self.tableWidget.setHorizontalHeaderLabels(data[0])
+
         if self.sort == 'Без сортировки':
             for i in range(1, len(data)):
                 for j in range(len(data[i])):
                     item = QTableWidgetItem(data[i][j])
+                    print(data[i][j])
                     self.tableWidget.setItem(i - 1, j, item)
         elif self.sort == 'По лексикографическому порядку':
             sort_sp = sorted(data[1:], key=lambda row: row[0], reverse=False)
