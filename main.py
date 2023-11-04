@@ -648,6 +648,22 @@ class Main_screen(QMainWindow):
                     for j in range(len(sort_sp[i])):
                         item = QTableWidgetItem(sort_sp[i][j])
                         self.tableWidget.setItem(i - 1, j, item)
+        elif self.sort == 'По категориям':
+            with open('classmates.csv', mode='r', encoding='utf-8') as csvfile:
+                reader = csv.reader(csvfile, delimiter=',')
+                data = []
+                for row in reader:
+                    data.append(row)
+                sort_sp = sorted(data[1:], key=lambda row: row[1], reverse=False)
+                sort_sp.insert(0, data[0])
+                self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+                self.tableWidget.setRowCount(len(sort_sp))
+                self.tableWidget.setColumnCount(len(sort_sp[0]))
+                self.tableWidget.setHorizontalHeaderLabels(sort_sp[0])
+                for i in range(1, len(sort_sp)):
+                    for j in range(len(sort_sp[i])):
+                        item = QTableWidgetItem(sort_sp[i][j])
+                        self.tableWidget.setItem(i - 1, j, item)
 
     def fun_add_an_entry(self):
         self.priority = self.priority_combo.currentText()
