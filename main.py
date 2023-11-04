@@ -132,8 +132,8 @@ main_window = '''<?xml version="1.0" encoding="UTF-8"?>
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>653</width>
-    <height>601</height>
+    <width>650</width>
+    <height>602</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -157,7 +157,7 @@ background-color: rgb(179, 179, 179);</string>
      <string notr="true">background-color: rgb(179, 179, 179);</string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -187,7 +187,7 @@ background-color: rgb(85, 119, 134);</string>
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="priority">
+       <widget class="QComboBox" name="priority_combo">
         <property name="styleSheet">
          <string notr="true">background-color: rgb(85, 119, 134);
 background-color: rgb(255, 255, 255);</string>
@@ -202,7 +202,7 @@ background-color: rgb(255, 255, 255);</string>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="category">
+       <widget class="QLineEdit" name="category_edit">
         <property name="styleSheet">
          <string notr="true">background-color: rgb(85, 119, 134);
 background-color: rgb(255, 255, 255);</string>
@@ -217,7 +217,7 @@ background-color: rgb(255, 255, 255);</string>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="task">
+       <widget class="QLineEdit" name="task_edit">
         <property name="styleSheet">
          <string notr="true">background-color: rgb(255, 255, 255);</string>
         </property>
@@ -298,37 +298,47 @@ background-color: rgb(85, 119, 134);</string>
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Выберите сортировку&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="download_table">
+     <widget class="QWidget" name="horizontalLayoutWidget">
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>530</y>
-        <width>201</width>
-        <height>41</height>
+        <y>520</y>
+        <width>641</width>
+        <height>51</height>
        </rect>
       </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(85, 119, 134);</string>
-      </property>
-      <property name="text">
-       <string>Скачать таблицу</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton_3">
-      <property name="geometry">
-       <rect>
-        <x>440</x>
-        <y>530</y>
-        <width>201</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(85, 119, 134);</string>
-      </property>
-      <property name="text">
-       <string>Удалить задачу</string>
-      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QPushButton" name="download_table">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(85, 119, 134);</string>
+         </property>
+         <property name="text">
+          <string>Скачать таблицу</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(85, 119, 134);</string>
+         </property>
+         <property name="text">
+          <string>Очистить таблицу</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="delete_task">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(85, 119, 134);</string>
+         </property>
+         <property name="text">
+          <string>Удалить задачу</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
    </widget>
@@ -593,36 +603,48 @@ class Main_screen(QMainWindow):
         super().__init__()
         f = io.StringIO(main_window)
         uic.loadUi(f, self)
-        self.priority.addItem("Низкий")
-        self.priority.addItem("Средний")
-        self.priority.addItem("Высокий")
-        self.category.setPlaceholderText('Например работа')
-        self.task.setPlaceholderText('Например сделать проект')
+        self.priority_combo.addItem("Низкий")
+        self.priority_combo.addItem("Средний")
+        self.priority_combo.addItem("Высокий")
+        self.category_edit.setPlaceholderText('Например работа')
+        self.task_edit.setPlaceholderText('Например сделать проект')
         self.add_an_entry.clicked.connect(self.fun_add_an_entry)
 
     def fun_add_an_entry(self):
-        priority = self.priority.currentText()
-        category = self.category.text()
-        task = self.task.text()
-        data = self.calendarWidget.selectedDate().getDate()
-        data = (date(data[0], data[1], data[2]))
-        if category == '' or task == '':
+        self.priority = self.priority_combo.currentText()
+        self.category = self.category_edit.text()
+        self.task = self.task_edit.text()
+        self.data = self.calendarWidget.selectedDate().getDate()
+        self.data = (date(self.data[0], self.data[1], self.data[2]))
+        today_date = date.today()
+        self.difference_days = (self.data - today_date).days
+        if self.category == '' or self.task == '':
             question = QMessageBox()
             question.setWindowTitle('Запись')
             question.setText('Вы ввели не все данные')
             question.setIcon(QMessageBox.Information)
-            question.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            question.setStandardButtons(QMessageBox.Ok)
             question.exec_()
         else:
-            today_date = date.today()
-            difference_days = (data - today_date).days
+            question = QMessageBox()
+            question.setWindowTitle('Запись')
+            question.setText('Вы точно хотитие добавить запись?')
+            question.setIcon(QMessageBox.Information)
+            question.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            question.buttonClicked.connect(self.processing_button_actions)
+            question.exec_()
+
+    def processing_button_actions(self, btn):
+        if btn.text() == 'OK':
             with open("classmates.csv", mode='a', encoding='utf-8') as w_file:
                 file_writer = csv.writer(w_file, delimiter=",", lineterminator="\r")
-                file_writer.writerow([task, category, priority, difference_days])
+                file_writer.writerow([self.task, self.category, self.priority, self.difference_days])
+        self.category_edit.setText('')
+        self.task_edit.setText('')
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = Main_screen()
+    ex = class_password_login_request()
     ex.show()
     sys.exit(app.exec_())
