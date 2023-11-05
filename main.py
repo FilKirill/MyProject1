@@ -799,6 +799,22 @@ class Main_screen(QMainWindow):
         self.mark_completed_tasks.clicked.connect(self.fun_mark_completed_tasks)
         self.view_completed_tasks.clicked.connect(self.open_completed_tasks)
         self.export_button.clicked.connect(self.fun_export_button)
+        self.import_button.clicked.connect(self.fun_import_button)
+
+    def fun_import_button(self):
+        file_dialog = QFileDialog()
+        file_path, _ = file_dialog.getOpenFileName(self, 'Import file')
+
+        if file_path:
+            with open(file_path, mode="r", encoding='utf-8') as file:
+                reader = csv.reader(file, delimiter=',', quoting=csv.QUOTE_NONE)
+                csv_data = list(reader)
+                os.remove("records.csv")
+                with open("records.csv", mode='a', encoding='utf-8') as w_file:
+                    file_writer = csv.writer(w_file, delimiter=",", lineterminator="\r")
+                    for i in csv_data:
+                        if len(i) != 0:
+                            file_writer.writerow(i)
 
     def fun_export_button(self):
         file_dialog = QFileDialog()
