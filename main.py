@@ -668,6 +668,18 @@ class class_password_login_request(QMainWindow):
             self.w2 = Main_screen()
             self.w2.show()
             self.close()
+        elif cod != 'W68HP' and c > 0:
+            question = QMessageBox()
+            question.setWindowTitle('Запись')
+            question.setText('Вы неправильно ввели код с картинки')
+            question.setIcon(QMessageBox.Information)
+            question.setStandardButtons(QMessageBox.Ok)
+            question.exec_()
+            self.name_button.setText('')
+            self.login_input.setText('')
+            self.entering_password.setText('')
+            self.input_cod.setText('')
+
         else:
             question = QMessageBox()
             question.setWindowTitle('Запись')
@@ -697,6 +709,7 @@ class Completed_tasks(QMainWindow):
         uic.loadUi(f, self)
         self.back.clicked.connect(self.open_Main_screen)
         self.setWindowTitle('Выполненые задания')
+
         self.updateButton.clicked.connect(self.fun_update)
         self.updateButton.clicked.connect(self.fun_update)
         self.deleteButton.clicked.connect(self.fun_deleteButton)
@@ -786,7 +799,7 @@ class Main_screen(QMainWindow):
         if row <= -1:
             question = QMessageBox()
             question.setWindowTitle('Планировщик')
-            question.setText('Чтобы добавить запись нажмите на название задачи')
+            question.setText('Чтобы выполнить задачу нажмите на её название')
             question.setIcon(QMessageBox.Information)
             question.setStandardButtons(QMessageBox.Ok)
             question.exec_()
@@ -921,6 +934,6 @@ class Main_screen(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = Main_screen()
+    ex = class_password_login_request()
     ex.show()
     sys.exit(app.exec_())
