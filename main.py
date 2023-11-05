@@ -689,11 +689,20 @@ class class_password_login_request(QMainWindow):
         self.w2.show()
         self.close()
 
-class completed_tasks(QMainWindow):
+
+class Completed_tasks(QMainWindow):
     def __init__(self):
         super().__init__()
         f = io.StringIO(window_template)
         uic.loadUi(f, self)
+        self.back.clicked.connect(self.open_Main_screen)
+
+    def open_Main_screen(self):
+        self.w2 = Main_screen()
+        self.w2.show()
+        self.close()
+
+
 class Main_screen(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -715,13 +724,12 @@ class Main_screen(QMainWindow):
         self.clear_table.clicked.connect(self.fun_clear_table)
         self.delete_task.clicked.connect(self.fun_delete_task)
         self.mark_completed_tasks.clicked.connect(self.fun_mark_completed_tasks)
-        self.view_completed_tasks.clicked.connect(self.fun_view_completed_tasks)
+        self.view_completed_tasks.clicked.connect(self.open_completed_tasks)
 
-    def fun_view_completed_tasks(self):
-        self.w2 = completed_tasks()
+    def open_completed_tasks(self):
+        self.w2 = Completed_tasks()
         self.w2.show()
         self.close()
-
 
     def fun_mark_completed_tasks(self):
         row = self.tableWidget.currentRow()
@@ -863,6 +871,6 @@ class Main_screen(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = completed_tasks()
+    ex = Main_screen()
     ex.show()
     sys.exit(app.exec_())
