@@ -1,12 +1,11 @@
 import sys
 import io
-import datetime
 import csv
 from datetime import datetime, date
 import sqlite3
 import os
 from PyQt5 import uic  # Импортируем uic
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QLineEdit, QTableWidgetItem, QHeaderView
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableWidgetItem, QHeaderView
 
 registration_window = '''<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
@@ -538,11 +537,15 @@ class class_user_registration(QMainWindow):
             question.setText('Вы неправильно ввели логин или пароль')
             question.setIcon(QMessageBox.Information)
             question.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            question.buttonClicked.connect(self.processing_button_actions)
+            question.exec_()
+
+    def processing_button_actions(self, btn):
+        if btn.text() == 'OK':
             self.name_edit.setText('')
             self.login_edit.setText('')
             self.password_edit.setText('')
             self.replay_password_edit.setText('')
-            question.exec_()
 
 
 class class_password_login_request(QMainWindow):
@@ -577,11 +580,15 @@ class class_password_login_request(QMainWindow):
             question.setText('Вы неправильно ввели логин или пароль')
             question.setIcon(QMessageBox.Information)
             question.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            question.buttonClicked.connect(self.processing_button_actions)
+            question.exec_()
+
+    def processing_button_actions(self, btn):
+        if btn.text() == 'OK':
             self.name_button.setText('')
             self.login_input.setText('')
             self.entering_password.setText('')
             self.input_cod.setText('')
-            question.exec_()
 
     def open_registration_window(self):
         self.w2 = class_user_registration()
@@ -631,7 +638,6 @@ class Main_screen(QMainWindow):
                 with open("records.csv", mode="a", encoding='utf-8') as w_file:
                     file_writer = csv.writer(w_file, delimiter=",", lineterminator="\r")
                     file_writer.writerow(csv_data[i])
-
 
     def fun_clear_table(self):
         file_path = "records.csv"
@@ -712,6 +718,6 @@ class Main_screen(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = Main_screen()
+    ex = class_password_login_request()
     ex.show()
     sys.exit(app.exec_())
