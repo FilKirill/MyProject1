@@ -696,6 +696,22 @@ class Completed_tasks(QMainWindow):
         f = io.StringIO(window_template)
         uic.loadUi(f, self)
         self.back.clicked.connect(self.open_Main_screen)
+        self.updateButton.clicked.connect(self.fun_update)
+
+    def fun_update(self):
+        con = sqlite3.connect('password.db')
+        cur = con.cursor()
+        # Выполнение запроса и получение всех результатов
+        result = cur.execute("""SELECT * FROM tasks""").fetchall()
+        self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.tableWidget.setRowCount(len(result))
+        self.tableWidget.setColumnCount(len(["Задача", "Категория", "Приоритет", "Кол-во дней до дедлайна"]))
+        self.tableWidget.setHorizontalHeaderLabels(["Задача", "Категория", "Приоритет", "Кол-во дней до дедлайна"])
+        for i in range(1, len(result)):
+            for j in range(len(result[i])):
+                item = QTableWidgetItem(result[i][j])
+                self.tableWidget.setItem(i - 1, j, item)
+        con.close()
 
     def open_Main_screen(self):
         self.w2 = Main_screen()
