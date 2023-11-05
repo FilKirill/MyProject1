@@ -697,20 +697,43 @@ class Completed_tasks(QMainWindow):
         uic.loadUi(f, self)
         self.back.clicked.connect(self.open_Main_screen)
         self.updateButton.clicked.connect(self.fun_update)
+        self.updateButton.clicked.connect(self.fun_update)
+        self.deleteButton.clicked.connect(self.fun_deleteButton)
+
+    def fun_deleteButton(self):
+        conn = sqlite3.connect('password.db')
+        c = conn.cursor()
+        c.execute('DELETE FROM tasks;', )
+        conn.commit()
+        conn.close()
 
     def fun_update(self):
         con = sqlite3.connect('password.db')
         cur = con.cursor()
-        # Выполнение запроса и получение всех результатов
         result = cur.execute("""SELECT * FROM tasks""").fetchall()
-        self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        self.tableWidget.setRowCount(len(result))
-        self.tableWidget.setColumnCount(len(["Задача", "Категория", "Приоритет", "Кол-во дней до дедлайна"]))
-        self.tableWidget.setHorizontalHeaderLabels(["Задача", "Категория", "Приоритет", "Кол-во дней до дедлайна"])
-        for i in range(1, len(result)):
-            for j in range(len(result[i])):
-                item = QTableWidgetItem(result[i][j])
-                self.tableWidget.setItem(i - 1, j, item)
+        if len(result) == 0:
+            self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+            data = [["Задача", "Категория", "Приоритет", "Кол-во дней до дедлайна"]]
+            self.tableWidget.setRowCount(0)
+            self.tableWidget.setColumnCount(len(data[0]))
+            self.tableWidget.setHorizontalHeaderLabels(data[0])
+            for i in range(0, len(data)):
+                for j in range(len(data[i])):
+                    item = QTableWidgetItem(data[i][j])
+                    self.tableWidget.setItem(i - 1, j, item)
+
+
+        else:
+            self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+            result.insert(0, ["Задача", "Категория", "Приоритет", "Кол-во дней до дедлайна"])
+            self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+            self.tableWidget.setRowCount(len(result))
+            self.tableWidget.setColumnCount(len(result[0]))
+            self.tableWidget.setHorizontalHeaderLabels(result[0])
+            for i in range(1, len(result)):
+                for j in range(len(result[i])):
+                    item = QTableWidgetItem(result[i][j])
+                    self.tableWidget.setItem(i - 1, j, item)
         con.close()
 
     def open_Main_screen(self):
