@@ -328,6 +328,26 @@ background-color: rgb(85, 119, 134);</string>
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="mark_completed_tasks">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(85, 119, 134);</string>
+         </property>
+         <property name="text">
+          <string>Отметить задачу как выполненную</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="view_completed_tasks">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(85, 119, 134);</string>
+         </property>
+         <property name="text">
+          <string>Посмотреть выполненные задачи</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </widget>
@@ -616,6 +636,35 @@ class Main_screen(QMainWindow):
         self.updateButton.clicked.connect(self.create_table)
         self.clear_table.clicked.connect(self.fun_clear_table)
         self.delete_task.clicked.connect(self.fun_delete_task)
+        self.mark_completed_tasks.clicked.connect(self.fun_mark_completed_tasks)
+
+    def fun_mark_completed_tasks(self):
+        row = self.tableWidget.currentRow()
+        if row <= -1:
+            question = QMessageBox()
+            question.setWindowTitle('Планировщик')
+            question.setText('Чтобы добавить запись нажмите на название задачи')
+            question.setIcon(QMessageBox.Information)
+            question.setStandardButtons(QMessageBox.Ok)
+            question.exec_()
+        if row > -1:
+            self.tableWidget.removeRow(row)
+            self.tableWidget.selectionModel().clearCurrentIndex()
+            with open("records.csv", mode="r", encoding='utf-8') as f:
+                reader = csv.reader(f, delimiter=',', quoting=csv.QUOTE_NONE)
+                csv_data = list(reader)
+            conn = sqlite3.connect('password.db')
+            cur = conn.cursor()
+            cur.execute("""INSERT INTO tasks(Task, Category, Priority, Deadline) 
+                                               VALUES(?, ?, ?, ?);""",
+                        (csv_data[row + 1][0], csv_data[row + 1][1], csv_data[row + 1][2], csv_data[row + 1][3]))
+            conn.commit()
+            del csv_data[row + 1]
+            os.remove('records.csv')
+            for i in range(len(csv_data)):
+                with open("records.csv", mode="a", encoding='utf-8') as w_file:
+                    file_writer = csv.writer(w_file, delimiter=",", lineterminator="\r")
+                    file_writer.writerow(csv_data[i])
 
     def fun_delete_task(self):
         row = self.tableWidget.currentRow()
