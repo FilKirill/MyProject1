@@ -514,6 +514,80 @@ password_login_request_window = '''<?xml version="1.0" encoding="UTF-8"?>
  <connections/>
 </ui>'''
 
+window_template = """<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>565</width>
+    <height>412</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(179, 179, 179);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>561</width>
+      <height>411</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QPushButton" name="updateButton">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 119, 134);</string>
+       </property>
+       <property name="text">
+        <string>Обновить</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTableWidget" name="tableWidget">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="deleteButton">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 119, 134);</string>
+       </property>
+       <property name="text">
+        <string>Очистить</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="back">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 119, 134);</string>
+       </property>
+       <property name="text">
+        <string>Назад</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>"""
+
 
 class class_user_registration(QMainWindow):
     def __init__(self):
@@ -615,7 +689,11 @@ class class_password_login_request(QMainWindow):
         self.w2.show()
         self.close()
 
-
+class completed_tasks(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        f = io.StringIO(window_template)
+        uic.loadUi(f, self)
 class Main_screen(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -778,6 +856,6 @@ class Main_screen(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = Main_screen()
+    ex = completed_tasks()
     ex.show()
     sys.exit(app.exec_())
