@@ -310,16 +310,6 @@ background-color: rgb(85, 119, 134);</string>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QPushButton" name="download_table">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(85, 119, 134);</string>
-         </property>
-         <property name="text">
-          <string>Скачать таблицу</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QPushButton" name="clear_table">
          <property name="styleSheet">
           <string notr="true">background-color: rgb(85, 119, 134);</string>
@@ -632,6 +622,16 @@ class Main_screen(QMainWindow):
         if row > -1:
             self.tableWidget.removeRow(row)
             self.tableWidget.selectionModel().clearCurrentIndex()
+            with open("records.csv", mode="r", encoding='utf-8') as f:
+                reader = csv.reader(f, delimiter=',', quoting=csv.QUOTE_NONE)
+                csv_data = list(reader)
+            del csv_data[row + 1]
+            os.remove('records.csv')
+            for i in range(len(csv_data)):
+                with open("records.csv", mode="a", encoding='utf-8') as w_file:
+                    file_writer = csv.writer(w_file, delimiter=",", lineterminator="\r")
+                    file_writer.writerow(csv_data[i])
+
 
     def fun_clear_table(self):
         file_path = "records.csv"
@@ -641,7 +641,7 @@ class Main_screen(QMainWindow):
     def create_table(self):
         self.sort = self.sorting.currentText()
         file_path = "records.csv"
-        if not (os.path.exists(file_path)):
+        if not (os.path.exists(file_path)) or os.stat(file_path).st_size == 0:
             with open("records.csv", mode="a", encoding='utf-8') as w_file:
                 file_writer = csv.writer(w_file, delimiter=",", lineterminator="\r")
                 file_writer.writerow(["Задача", "Категория", "Приоритет", "Кол-во дней до дедлайна"])
@@ -652,7 +652,6 @@ class Main_screen(QMainWindow):
             data = []
             for row in reader:
                 data.append(row)
-            print(data)
             self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
             self.tableWidget.setRowCount(len(data))
             self.tableWidget.setColumnCount(len(data[0]))
@@ -662,31 +661,16 @@ class Main_screen(QMainWindow):
             for i in range(1, len(data)):
                 for j in range(len(data[i])):
                     item = QTableWidgetItem(data[i][j])
-                    print(data[i][j])
                     self.tableWidget.setItem(i - 1, j, item)
-        elif self.sort == 'По лексикографическому порядку':
-            sort_sp = sorted(data[1:], key=lambda row: row[0], reverse=False)
-            sort_sp.insert(0, data[0])
-            for i in range(1, len(sort_sp)):
-                for j in range(len(sort_sp[i])):
-                    item = QTableWidgetItem(sort_sp[i][j])
-                    self.tableWidget.setItem(i - 1, j, item)
-        elif self.sort == 'По категориям':
-            sort_sp = sorted(data[1:], key=lambda row: row[1], reverse=False)
-            sort_sp.insert(0, data[0])
-            for i in range(1, len(sort_sp)):
-                for j in range(len(sort_sp[i])):
-                    item = QTableWidgetItem(sort_sp[i][j])
-                    self.tableWidget.setItem(i - 1, j, item)
-        elif self.sort == 'По приоритету':
-            sort_sp = sorted(data[1:], key=lambda row: row[2], reverse=False)
-            sort_sp.insert(0, data[0])
-            for i in range(1, len(sort_sp)):
-                for j in range(len(sort_sp[i])):
-                    item = QTableWidgetItem(sort_sp[i][j])
-                    self.tableWidget.setItem(i - 1, j, item)
-        elif self.sort == 'По кол-ву дней до дедлайна':
-            sort_sp = sorted(data[1:], key=lambda row: int(row[3]), reverse=False)
+        else:
+            if self.sort == 'По лексикографическому порядку':
+                sort_sp = sorted(data[1:], key=lambda row: row[0], reverse=False)
+            elif self.sort == 'По категориям':
+                sort_sp = sorted(data[1:], key=lambda row: row[1], reverse=False)
+            elif self.sort == 'По приоритету':
+                sort_sp = sorted(data[1:], key=lambda row: row[2], reverse=False)
+            elif self.sort == 'По кол-ву дней до дедлайна':
+                sort_sp = sorted(data[1:], key=lambda row: int(row[3]), reverse=False)
             sort_sp.insert(0, data[0])
             for i in range(1, len(sort_sp)):
                 for j in range(len(sort_sp[i])):
