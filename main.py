@@ -696,6 +696,7 @@ class Completed_tasks(QMainWindow):
         f = io.StringIO(window_template)
         uic.loadUi(f, self)
         self.back.clicked.connect(self.open_Main_screen)
+        self.setWindowTitle('Выполненые задания')
         self.updateButton.clicked.connect(self.fun_update)
         self.updateButton.clicked.connect(self.fun_update)
         self.deleteButton.clicked.connect(self.fun_deleteButton)
