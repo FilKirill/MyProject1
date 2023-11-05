@@ -342,7 +342,7 @@ background-color: rgb(85, 119, 134);</string>
             <string notr="true">background-color: rgb(85, 119, 134);</string>
            </property>
            <property name="text">
-            <string>Import данных</string>
+            <string>Import таблицы</string>
            </property>
           </widget>
          </item>
@@ -352,7 +352,7 @@ background-color: rgb(85, 119, 134);</string>
             <string notr="true">background-color: rgb(85, 119, 134);</string>
            </property>
            <property name="text">
-            <string>Export данных</string>
+            <string>Export таблицы</string>
            </property>
           </widget>
          </item>
@@ -576,7 +576,17 @@ window_template = """<?xml version="1.0" encoding="UTF-8"?>
         <string notr="true">background-color: rgb(85, 119, 134);</string>
        </property>
        <property name="text">
-        <string>Очистить</string>
+        <string>Удалить</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="export_button">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 119, 134);</string>
+       </property>
+       <property name="text">
+        <string>Export таблицы</string>
        </property>
       </widget>
      </item>
@@ -723,6 +733,22 @@ class Completed_tasks(QMainWindow):
         self.updateButton.clicked.connect(self.fun_update)
         self.updateButton.clicked.connect(self.fun_update)
         self.deleteButton.clicked.connect(self.fun_deleteButton)
+        self.export_button.clicked.connect(self.fun_export_button)
+
+    def fun_export_button(self):
+        file_dialog = QFileDialog()
+        file_path, _ = file_dialog.getSaveFileName(self, 'Export file', '', 'CSV files (*.csv)')
+
+        if file_path:
+            with open(file_path, mode="w", encoding='utf-8') as file:
+                writer = csv.writer(file)
+                con = sqlite3.connect('password.db')
+                cur = con.cursor()
+                result = cur.execute("""SELECT * FROM tasks""").fetchall()
+                writer.writerow(["Задача", "Категория", "Приоритет", "Кол-во дней до дедлайна"])
+                for i in result:
+                    writer.writerow(i)
+
 
     def fun_deleteButton(self):
         question = QMessageBox()
@@ -827,7 +853,6 @@ class Main_screen(QMainWindow):
                     reader = csv.reader(f, delimiter=',', quoting=csv.QUOTE_NONE)
                     csv_data = list(reader)
                 for i in csv_data:
-                    print(i)
                     writer.writerow(i)
 
     def open_completed_tasks(self):
