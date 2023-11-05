@@ -715,6 +715,13 @@ class Main_screen(QMainWindow):
         self.clear_table.clicked.connect(self.fun_clear_table)
         self.delete_task.clicked.connect(self.fun_delete_task)
         self.mark_completed_tasks.clicked.connect(self.fun_mark_completed_tasks)
+        self.view_completed_tasks.clicked.connect(self.fun_view_completed_tasks)
+
+    def fun_view_completed_tasks(self):
+        self.w2 = completed_tasks()
+        self.w2.show()
+        self.close()
+
 
     def fun_mark_completed_tasks(self):
         row = self.tableWidget.currentRow()
