@@ -621,7 +621,7 @@ class Main_screen(QMainWindow):
         row = self.tableWidget.currentRow()
         if row <= -1:
             question = QMessageBox()
-            question.setWindowTitle('Система')
+            question.setWindowTitle('Планировщик')
             question.setText('Чтобы удалить запись нажмите на название задачи')
             question.setIcon(QMessageBox.Information)
             question.setStandardButtons(QMessageBox.Ok)
@@ -640,9 +640,20 @@ class Main_screen(QMainWindow):
                     file_writer.writerow(csv_data[i])
 
     def fun_clear_table(self):
-        file_path = "records.csv"
-        if os.path.exists(file_path):
-            os.remove(file_path)
+        question = QMessageBox()
+        question.setWindowTitle('Планировщик')
+        question.setText('Вы действительно хотите очистить таблицу')
+        question.setIcon(QMessageBox.Information)
+        question.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        question.exec_()
+        question.buttonClicked.connect(self.button_status)
+        question.exec_()
+
+    def button_status(self, btn):
+        if btn.text() == 'OK':
+            file_path = "records.csv"
+            if os.path.exists(file_path):
+                os.remove(file_path)
 
     def create_table(self):
         self.sort = self.sorting.currentText()
@@ -718,6 +729,6 @@ class Main_screen(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = class_password_login_request()
+    ex = Main_screen()
     ex.show()
     sys.exit(app.exec_())
