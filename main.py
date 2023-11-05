@@ -522,8 +522,8 @@ window_template = """<?xml version="1.0" encoding="UTF-8"?>
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>565</width>
-    <height>412</height>
+    <width>647</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -538,8 +538,8 @@ window_template = """<?xml version="1.0" encoding="UTF-8"?>
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>561</width>
-      <height>411</height>
+      <width>651</width>
+      <height>601</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -701,11 +701,21 @@ class Completed_tasks(QMainWindow):
         self.deleteButton.clicked.connect(self.fun_deleteButton)
 
     def fun_deleteButton(self):
-        conn = sqlite3.connect('password.db')
-        c = conn.cursor()
-        c.execute('DELETE FROM tasks;', )
-        conn.commit()
-        conn.close()
+        question = QMessageBox()
+        question.setWindowTitle('Планировщик')
+        question.setText('Вы точно хотитие очистить таблицу')
+        question.setIcon(QMessageBox.Information)
+        question.setStandardButtons(QMessageBox.Ok)
+        question.buttonClicked.connect(self.button_status)
+        question.exec_()
+
+    def button_status(self, btn):
+        if btn.text() == 'OK':
+            conn = sqlite3.connect('password.db')
+            c = conn.cursor()
+            c.execute('DELETE FROM tasks;', )
+            conn.commit()
+            conn.close()
 
     def fun_update(self):
         con = sqlite3.connect('password.db')
