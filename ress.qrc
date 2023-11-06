@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>на регистрацию.jpg</file>
+  </qresource>
+</RCC>

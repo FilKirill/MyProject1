@@ -7,6 +7,9 @@ import os
 from PyQt5.QtGui import QFont
 from PyQt5 import uic  # Импортируем uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableWidgetItem, QHeaderView, QFileDialog
+from resources import *
+from res import *
+
 
 registration_window = '''<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
@@ -16,8 +19,8 @@ registration_window = '''<?xml version="1.0" encoding="UTF-8"?>
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
-    <height>330</height>
+    <width>536</width>
+    <height>292</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,23 +31,23 @@ registration_window = '''<?xml version="1.0" encoding="UTF-8"?>
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
-      <width>511</width>
-      <height>331</height>
+      <y>-40</y>
+      <width>541</width>
+      <height>371</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/newPrefix/на регистрацию.jpg);</string>
     </property>
     <property name="text">
      <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap>на регистрацию.jpg</pixmap>
     </property>
    </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>50</y>
+      <x>80</x>
+      <y>10</y>
       <width>371</width>
       <height>221</height>
      </rect>
@@ -121,7 +124,9 @@ registration_window = '''<?xml version="1.0" encoding="UTF-8"?>
    </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="ress.qrc"/>
+ </resources>
  <connections/>
 </ui>'''
 
@@ -434,8 +439,8 @@ password_login_request_window = '''<?xml version="1.0" encoding="UTF-8"?>
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>501</width>
-    <height>330</height>
+    <width>518</width>
+    <height>292</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -448,36 +453,53 @@ password_login_request_window = '''<?xml version="1.0" encoding="UTF-8"?>
    <widget class="QLabel" name="label_8">
     <property name="geometry">
      <rect>
-      <x>-10</x>
+      <x>0</x>
       <y>-20</y>
-      <width>511</width>
-      <height>351</height>
+      <width>521</width>
+      <height>331</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">image: url(:/newPrefix/на регистрацию.jpg);</string>
     </property>
     <property name="text">
      <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap>на регистрацию.jpg</pixmap>
     </property>
    </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>40</y>
-      <width>371</width>
+      <x>50</x>
+      <y>10</y>
+      <width>417</width>
       <height>228</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="2" column="0">
-      <widget class="QLabel" name="label">
+     <item row="5" column="0">
+      <widget class="QPushButton" name="login_button">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(160, 180, 152);</string>
+       </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Логин                 &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>Войти</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="styleSheet">
+        <string notr="true">alternate-background-color: rgb(170, 170, 0);</string>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Авторизация&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1" colspan="2">
+      <widget class="QLineEdit" name="login_input">
+       <property name="styleSheet">
+        <string notr="true"/>
        </property>
       </widget>
      </item>
@@ -491,13 +513,23 @@ password_login_request_window = '''<?xml version="1.0" encoding="UTF-8"?>
        </property>
       </widget>
      </item>
-     <item row="6" column="0" colspan="2">
-      <widget class="QLabel" name="label_4">
+     <item row="6" column="2">
+      <widget class="QPushButton" name="registration_button">
        <property name="styleSheet">
-        <string notr="true">font: 75 8pt &quot;MS Shell Dlg 2&quot;;</string>
+        <string notr="true">background-color: rgb(155, 179, 153);</string>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Ещё не зарегистрированы ?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>Регистрация</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1" colspan="2">
+      <widget class="QLineEdit" name="entering_password"/>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Код с картинки&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
@@ -508,38 +540,15 @@ password_login_request_window = '''<?xml version="1.0" encoding="UTF-8"?>
        </property>
       </widget>
      </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Пароль               &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
      <item row="4" column="1" colspan="2">
       <widget class="QLineEdit" name="input_cod"/>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_6">
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Код с картинки&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0">
-      <widget class="QPushButton" name="login_button">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(160, 180, 152);</string>
-       </property>
-       <property name="text">
-        <string>Войти</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1" colspan="2">
-      <widget class="QLineEdit" name="entering_password"/>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="styleSheet">
-        <string notr="true">alternate-background-color: rgb(170, 170, 0);</string>
-       </property>
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Авторизация&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_7">
@@ -548,27 +557,20 @@ password_login_request_window = '''<?xml version="1.0" encoding="UTF-8"?>
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_2">
+     <item row="2" column="0">
+      <widget class="QLabel" name="label">
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Пароль               &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Логин                 &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="1" colspan="2">
-      <widget class="QLineEdit" name="login_input">
+     <item row="6" column="0" colspan="2">
+      <widget class="QLabel" name="label_4">
        <property name="styleSheet">
-        <string notr="true"/>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="2">
-      <widget class="QPushButton" name="registration_button">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(155, 179, 153);</string>
+        <string notr="true">font: 75 8pt &quot;MS Shell Dlg 2&quot;;</string>
        </property>
        <property name="text">
-        <string>Регистрация</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Ещё не зарегистрированы ?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
@@ -1222,6 +1224,6 @@ class Main_screen(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = Main_screen()
+    ex = class_password_login_request()
     ex.show()
     sys.exit(app.exec_())
