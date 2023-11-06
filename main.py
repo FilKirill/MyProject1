@@ -684,6 +684,10 @@ window_template = """<?xml version="1.0" encoding="UTF-8"?>
 
 
 class class_user_registration(QMainWindow):
+    '''
+    Класс для регистрации пользователя
+    '''
+
     def __init__(self):
         super().__init__()
         f = io.StringIO(registration_window)
@@ -693,11 +697,17 @@ class class_user_registration(QMainWindow):
         self.come_back.clicked.connect(self.fun_come_back)
 
     def fun_come_back(self):
+        '''
+        Функция  для открытия другого окна
+        '''
         self.w2 = class_password_login_request()
         self.w2.show()
         self.close()
 
     def registration_completed(self):
+        '''
+        Функция которая  регистрирует пользователя и записывает его данные в базу данных password.db
+        '''
         self.name = self.name_edit.text()
         self.login = self.login_edit.text()
         self.password = self.password_edit.text()
@@ -711,8 +721,10 @@ class class_user_registration(QMainWindow):
             question.setStandardButtons(QMessageBox.Ok)
             conn = sqlite3.connect('password.db')
             cur = conn.cursor()
-            cur.execute("""INSERT INTO users(name, login, password) 
-                                   VALUES(?, ?, ?);""", (self.name, self.login, self.password))
+            cur.execute("""INSERT INTO users(name,
+             login,
+              password) VALUES(?, ?, ?);""",
+                        (self.name, self.login, self.password))
             conn.commit()
             question.exec_()
             self.w2 = class_password_login_request()
@@ -729,6 +741,9 @@ class class_user_registration(QMainWindow):
             question.exec_()
 
     def processing_button_actions(self, btn):
+        '''
+        Функция которая обрабатывает нажатие кнопки
+        '''
         if btn.text() == 'OK':
             self.name_edit.setText('')
             self.login_edit.setText('')
@@ -737,6 +752,10 @@ class class_user_registration(QMainWindow):
 
 
 class class_password_login_request(QMainWindow):
+    '''
+    Класс для авторизации пользователя
+    '''
+
     def __init__(self):
         super().__init__()
         f = io.StringIO(password_login_request_window)
@@ -746,6 +765,9 @@ class class_password_login_request(QMainWindow):
         self.login_button.clicked.connect(self.login_password_verification)
 
     def login_password_verification(self):
+        '''
+        Функция которая производит авторизацию пользователя
+        '''
         name = self.name_button.text()
         login = self.login_input.text()
         password = self.entering_password.text()
@@ -784,6 +806,9 @@ class class_password_login_request(QMainWindow):
             question.exec_()
 
     def processing_button_actions(self, btn):
+        '''
+        Функция которая обрабатывает нажатие кнопки
+        '''
         if btn.text() == 'OK':
             self.name_button.setText('')
             self.login_input.setText('')
@@ -791,12 +816,19 @@ class class_password_login_request(QMainWindow):
             self.input_cod.setText('')
 
     def open_registration_window(self):
+        '''
+        Функция  для открытия другого окна
+        '''
         self.w2 = class_user_registration()
         self.w2.show()
         self.close()
 
 
 class Completed_tasks(QMainWindow):
+    '''
+    Класс для отображения выполненных задач пользователя
+    '''
+
     def __init__(self):
         super().__init__()
         f = io.StringIO(window_template)
@@ -814,6 +846,9 @@ class Completed_tasks(QMainWindow):
         self.export_button.clicked.connect(self.fun_export_button)
 
     def fun_export_button(self):
+        '''
+        Функция которая производит Export таблицы
+        '''
         file_dialog = QFileDialog()
         file_path, _ = file_dialog.getSaveFileName(self, 'Export file', '', 'CSV files (*.csv)')
 
@@ -829,6 +864,9 @@ class Completed_tasks(QMainWindow):
                     writer.writerow(result[i])
 
     def fun_deleteButton(self):
+        '''
+        Функция которая создает QMessageBox
+        '''
         question = QMessageBox()
         question.setWindowTitle('Планировщик')
         question.setText('Вы точно хотитие очистить таблицу?')
@@ -838,6 +876,10 @@ class Completed_tasks(QMainWindow):
         question.exec_()
 
     def button_status(self, btn):
+        '''
+        Функция которая обрабатывает нажатие кнопки.
+        И при нажатии  кнопки ОК удаляет таблицу tasks в базе данных password.db
+        '''
         if btn.text() == 'OK':
             conn = sqlite3.connect('password.db')
             c = conn.cursor()
@@ -846,6 +888,9 @@ class Completed_tasks(QMainWindow):
             conn.close()
 
     def fun_update(self):
+        '''
+        Функция которая сортирует таблицу
+        '''
         con = sqlite3.connect('password.db')
         cur = con.cursor()
         result = cur.execute("""SELECT * FROM tasks""").fetchall()
@@ -891,12 +936,19 @@ class Completed_tasks(QMainWindow):
             con.close()
 
     def open_Main_screen(self):
+        '''
+        Функция  для открытия другого окна
+        '''
         self.w2 = Main_screen()
         self.w2.show()
         self.close()
 
 
 class Main_screen(QMainWindow):
+    '''
+    Класс для добавления и отображения задач пользователя
+    '''
+
     def __init__(self):
         super().__init__()
         f = io.StringIO(main_window)
@@ -928,6 +980,9 @@ class Main_screen(QMainWindow):
         self.import_button.clicked.connect(self.fun_import_button)
 
     def fun_import_button(self):
+        '''
+        Функция  которая производит Import данных
+        '''
         file_dialog = QFileDialog()
         file_path, _ = file_dialog.getOpenFileName(self, 'Import file')
 
@@ -943,6 +998,9 @@ class Main_screen(QMainWindow):
                             file_writer.writerow(i)
 
     def fun_export_button(self):
+        '''
+        Функция  которая производит Export данных
+        '''
         file_dialog = QFileDialog()
         file_path, _ = file_dialog.getSaveFileName(self, 'Export file', '', 'CSV files (*.csv)')
 
@@ -956,11 +1014,17 @@ class Main_screen(QMainWindow):
                     writer.writerow(i)
 
     def open_completed_tasks(self):
+        '''
+        Функция  для открытия другого окна
+        '''
         self.w2 = Completed_tasks()
         self.w2.show()
         self.close()
 
     def fun_mark_completed_tasks(self):
+        '''
+        Функция  которая обрабатывает нажатие на таблицу
+        '''
         self.row = self.tableWidget.currentRow()
         if self.row <= -1:
             question = QMessageBox()
@@ -979,6 +1043,11 @@ class Main_screen(QMainWindow):
             question.exec_()
 
     def button_actions_OK(self, btn):
+        '''
+        Функция которая обрабатывает нажатие кнопки.
+        И при нажатии  кнопки ОК записывает данные в таблицу tasks в баззе данных password.db
+        и удаляет данные из таблицы records.csv
+        '''
         if btn.text() == 'OK':
             self.tableWidget.removeRow(self.row)
             self.tableWidget.selectionModel().clearCurrentIndex()
@@ -987,8 +1056,10 @@ class Main_screen(QMainWindow):
                 csv_data = list(reader)
             conn = sqlite3.connect('password.db')
             cur = conn.cursor()
-            cur.execute("""INSERT INTO tasks(Task, Category, Priority, Deadline) 
-                                               VALUES(?, ?, ?, ?);""",
+            cur.execute("""INSERT INTO tasks(Task,
+             Category,
+              Priority,
+               Deadline) VALUES(?, ?, ?, ?);""",
                         (csv_data[self.row + 1][0], csv_data[self.row + 1][1], csv_data[self.row + 1][2],
                          csv_data[self.row + 1][3]))
             conn.commit()
@@ -1000,6 +1071,9 @@ class Main_screen(QMainWindow):
                     file_writer.writerow(csv_data[i])
 
     def fun_delete_task(self):
+        '''
+        Функция  которая обрабатывает нажатие на таблицу
+        '''
         self.row_del = self.tableWidget.currentRow()
         if self.row_del <= -1:
             question = QMessageBox()
@@ -1018,6 +1092,10 @@ class Main_screen(QMainWindow):
             question.exec_()
 
     def button_actions_fun_delete_task(self, btn):
+        '''
+        Функция которая обрабатывает нажатие кнопки.
+        И при нажатии  кнопки ОК удаляет данные из таблицы records.csv
+        '''
         if btn.text() == 'OK':
             self.tableWidget.removeRow(self.row_del)
             self.tableWidget.selectionModel().clearCurrentIndex()
@@ -1032,6 +1110,9 @@ class Main_screen(QMainWindow):
                     file_writer.writerow(csv_data[i])
 
     def fun_clear_table(self):
+        '''
+        Функция которая создает QMessageBox
+        '''
         question = QMessageBox()
         question.setWindowTitle('Планировщик')
         question.setText('Вы действительно хотите очистить таблицу?')
@@ -1041,12 +1122,19 @@ class Main_screen(QMainWindow):
         question.exec_()
 
     def button_status(self, btn):
+        '''
+        Функция которая обрабатывает нажатие кнопки.
+        И при нажатии  кнопки ОК удаляет таблицу records.csv
+        '''
         if btn.text() == 'OK':
             file_path = "records.csv"
             if os.path.exists(file_path):
                 os.remove(file_path)
 
     def create_table(self):
+        '''
+        Функция которая сортирует таблицу
+        '''
         self.sort = self.sorting.currentText()
         file_path = "records.csv"
         if not (os.path.exists(file_path)) or os.stat(file_path).st_size == 0:
@@ -1086,6 +1174,9 @@ class Main_screen(QMainWindow):
                     self.tableWidget.setItem(i - 1, j, item)
 
     def fun_add_an_entry(self):
+        '''
+        Функция которая проверяет правильность вводимых пользователем данных
+        '''
         self.priority = self.priority_combo.currentText()
         self.category = self.category_edit.toPlainText()
         self.task = self.task_edit.toPlainText()
@@ -1117,6 +1208,10 @@ class Main_screen(QMainWindow):
             question.exec_()
 
     def processing_button_actions(self, btn):
+        '''
+        Функция которая обрабатывает нажатие кнопки.
+        И при нажатии  кнопки ОК записывает данные в таблицу records.csv
+        '''
         if btn.text() == 'OK':
             with open("records.csv", mode='a', encoding='utf-8') as w_file:
                 file_writer = csv.writer(w_file, delimiter=",", lineterminator="\r")
@@ -1127,6 +1222,6 @@ class Main_screen(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = Completed_tasks()
+    ex = Main_screen()
     ex.show()
     sys.exit(app.exec_())
