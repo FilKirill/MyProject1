@@ -6,10 +6,10 @@ import sqlite3
 import os
 from PyQt5.QtGui import QFont
 from PyQt5 import uic  # Импортируем uic
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableWidgetItem, QHeaderView, QFileDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableWidgetItem, QHeaderView, QFileDialog, \
+    QGridLayout
 from resources import *
 from res import *
-
 
 registration_window = '''<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
@@ -138,8 +138,8 @@ main_window = '''<?xml version="1.0" encoding="UTF-8"?>
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>835</width>
-    <height>665</height>
+    <width>915</width>
+    <height>611</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -162,265 +162,189 @@ main_window = '''<?xml version="1.0" encoding="UTF-8"?>
        <attribute name="title">
         <string>Добавить задачу</string>
        </attribute>
-       <widget class="QLabel" name="label_3">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>10</y>
-          <width>331</width>
-          <height>18</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Выберите дату дедлайна в календаре&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-       <widget class="QCalendarWidget" name="calendarWidget">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>40</y>
-          <width>421</width>
-          <height>251</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 170, 0);</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_2">
-        <property name="geometry">
-         <rect>
-          <x>460</x>
-          <y>10</y>
-          <width>291</width>
-          <height>18</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Выберите уровень приоритета&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="priority_combo">
-        <property name="geometry">
-         <rect>
-          <x>440</x>
-          <y>40</y>
-          <width>351</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(85, 119, 134);
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Выберите дату дедлайна в календаре&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Выберите уровень приоритета&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" rowspan="3">
+         <widget class="QCalendarWidget" name="calendarWidget">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 170, 0);</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QComboBox" name="priority_combo">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(85, 119, 134);
 background-color: rgb(255, 255, 255);</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_4">
-        <property name="geometry">
-         <rect>
-          <x>470</x>
-          <y>90</y>
-          <width>251</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Напишите категорию задачи&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_5">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>310</y>
-          <width>791</width>
-          <height>19</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Напишите задачу&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="add_an_entry">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>582</y>
-          <width>801</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 170, 127);</string>
-        </property>
-        <property name="text">
-         <string>Добавить задачу</string>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>16</width>
-          <height>16</height>
-         </size>
-        </property>
-        <property name="autoRepeatDelay">
-         <number>300</number>
-        </property>
-        <property name="autoRepeatInterval">
-         <number>102</number>
-        </property>
-       </widget>
-       <widget class="QPlainTextEdit" name="task_edit">
-        <property name="geometry">
-         <rect>
-          <x>30</x>
-          <y>340</y>
-          <width>751</width>
-          <height>211</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);</string>
-        </property>
-       </widget>
-       <widget class="QPlainTextEdit" name="category_edit">
-        <property name="geometry">
-         <rect>
-          <x>440</x>
-          <y>130</y>
-          <width>351</width>
-          <height>91</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);</string>
-        </property>
-       </widget>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Напишите категорию задачи&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QPlainTextEdit" name="category_edit">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0" colspan="2">
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Напишите задачу&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0" colspan="2">
+         <widget class="QPlainTextEdit" name="task_edit">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0" colspan="2">
+         <widget class="QPushButton" name="add_an_entry">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 170, 127);</string>
+          </property>
+          <property name="text">
+           <string>Добавить задачу</string>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
+           </size>
+          </property>
+          <property name="autoRepeatDelay">
+           <number>300</number>
+          </property>
+          <property name="autoRepeatInterval">
+           <number>102</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
         <string>Посмотреть задачи</string>
        </attribute>
-       <widget class="QTableWidget" name="tableWidget">
-        <property name="geometry">
-         <rect>
-          <x>220</x>
-          <y>40</y>
-          <width>591</width>
-          <height>581</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);</string>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="sorting">
-        <property name="geometry">
-         <rect>
-          <x>590</x>
-          <y>0</y>
-          <width>211</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_6">
-        <property name="geometry">
-         <rect>
-          <x>240</x>
-          <y>0</y>
-          <width>331</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Как отсортировать данные в таблице&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-       <widget class="QWidget" name="verticalLayoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>221</width>
-          <height>521</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <item>
-          <widget class="QPushButton" name="updateButton">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(255, 170, 127);</string>
-           </property>
-           <property name="text">
-            <string>Обновить</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="clear_table">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(255, 170, 127);</string>
-           </property>
-           <property name="text">
-            <string>Очистить таблицу</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="mark_completed_tasks">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(255, 170, 127);</string>
-           </property>
-           <property name="text">
-            <string>Отметить задачу как выполненную</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="view_completed_tasks">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(255, 170, 127);</string>
-           </property>
-           <property name="text">
-            <string>Посмотреть выполненные задачи</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="delete_task">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(255, 170, 127);</string>
-           </property>
-           <property name="text">
-            <string>Удалить задачу</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="import_button">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(255, 170, 127);</string>
-           </property>
-           <property name="text">
-            <string>Import таблицы</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="export_button">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(255, 170, 127);</string>
-           </property>
-           <property name="text">
-            <string>Export таблицы</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0" rowspan="2">
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QPushButton" name="updateButton">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 170, 127);</string>
+            </property>
+            <property name="text">
+             <string>Обновить</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="clear_table">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 170, 127);</string>
+            </property>
+            <property name="text">
+             <string>Очистить таблицу</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="mark_completed_tasks">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 170, 127);</string>
+            </property>
+            <property name="text">
+             <string>Отметить задачу как выполненную</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="view_completed_tasks">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 170, 127);</string>
+            </property>
+            <property name="text">
+             <string>Посмотреть выполненные задачи</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="delete_task">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 170, 127);</string>
+            </property>
+            <property name="text">
+             <string>Удалить задачу</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="import_button">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 170, 127);</string>
+            </property>
+            <property name="text">
+             <string>Import таблицы</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="export_button">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 170, 127);</string>
+            </property>
+            <property name="text">
+             <string>Export таблицы</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Как отсортировать данные в таблице&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QComboBox" name="sorting">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1" colspan="2">
+         <widget class="QTableWidget" name="tableWidget">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -604,85 +528,74 @@ window_template = """<?xml version="1.0" encoding="UTF-8"?>
    <string notr="true">background-color: rgb(255, 210, 127);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>801</width>
-      <height>661</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
-      <widget class="QPushButton" name="updateButton">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 170, 127);</string>
-       </property>
-       <property name="text">
-        <string>Обновить</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0" colspan="4">
-      <widget class="QTableWidget" name="tableWidget">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1" colspan="2">
-      <widget class="QPushButton" name="export_button">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 170, 127);</string>
-       </property>
-       <property name="text">
-        <string>Export таблицы</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="3">
-      <widget class="QPushButton" name="deleteButton">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 170, 127);</string>
-       </property>
-       <property name="text">
-        <string>Удалить</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QPushButton" name="back">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 170, 127);</string>
-       </property>
-       <property name="text">
-        <string>Назад</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="3">
-      <widget class="QComboBox" name="sort_comboBox">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1" colspan="2">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Как отсортировать данные в таблице&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QPushButton" name="updateButton">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 170, 127);</string>
+      </property>
+      <property name="text">
+       <string>Обновить</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Как отсортировать данные в таблице&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2">
+     <widget class="QComboBox" name="sort_comboBox">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QPushButton" name="back">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 170, 127);</string>
+      </property>
+      <property name="text">
+       <string>Назад</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QPushButton" name="export_button">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 170, 127);</string>
+      </property>
+      <property name="text">
+       <string>Export таблицы</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QPushButton" name="deleteButton">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 170, 127);</string>
+      </property>
+      <property name="text">
+       <string>Удалить</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="3">
+     <widget class="QTableWidget" name="tableWidget">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>
  <connections/>
-</ui>
-"""
+</ui>"""
 
 
 class class_user_registration(QMainWindow):
@@ -694,8 +607,13 @@ class class_user_registration(QMainWindow):
         super().__init__()
         f = io.StringIO(registration_window)
         uic.loadUi(f, self)
+        # Установливаю размер окна
+        self.setFixedSize(536, 292)
+        # Создал название окна
         self.setWindowTitle('Регистрация пользователя')
+        # Запускаю функцию registration_completed если нажата кнопка button_complete_registration
         self.button_complete_registration.clicked.connect(self.registration_completed)
+        # Запускаю функцию fun_come_back если нажата кнопка come_back
         self.come_back.clicked.connect(self.fun_come_back)
 
     def fun_come_back(self):
@@ -710,27 +628,42 @@ class class_user_registration(QMainWindow):
         '''
         Функция которая  регистрирует пользователя и записывает его данные в базу данных password.db
         '''
+        # Считываю данные с name_edit
         self.name = self.name_edit.text()
+        # Считываю данные с login_edit
         self.login = self.login_edit.text()
+        # Считываю данные с password_edit
         self.password = self.password_edit.text()
+        # Считываю данные с replay_password_edit
         self.replay_password = self.replay_password_edit.text()
 
+        # Проверяю ввел ли пользователь все данные и проверяю их корректность
         if self.name != '' and self.login != '' and self.password != '' and self.password == self.replay_password:
+            # Создаю QMessageBox
             question = QMessageBox()
+            # Даю название QMessageBox
             question.setWindowTitle('регистрация')
+            # Вставил текст в QMessageBox
             question.setText('Вы успешно зарегистрировались')
+            # Выбрал тип QMessageBox
             question.setIcon(QMessageBox.Information)
+            # Добавил кнопку Ок в QMessageBox
             question.setStandardButtons(QMessageBox.Ok)
+            # Подключаю базу данных
             conn = sqlite3.connect('password.db')
             cur = conn.cursor()
+                # Добавляю данные пользователя в базу данных
             cur.execute("""INSERT INTO users(name,
              login,
               password) VALUES(?, ?, ?);""",
                         (self.name, self.login, self.password))
+            # Делаю commit
             conn.commit()
             question.exec_()
             self.w2 = class_password_login_request()
+            # открываю новое окно
             self.w2.show()
+            # закрываю старое
             self.close()
 
         else:
@@ -762,6 +695,7 @@ class class_password_login_request(QMainWindow):
         super().__init__()
         f = io.StringIO(password_login_request_window)
         uic.loadUi(f, self)
+        self.setFixedSize(510, 280)
         self.setWindowTitle('Вход пользователя')
         self.registration_button.clicked.connect(self.open_registration_window)
         self.login_button.clicked.connect(self.login_password_verification)
@@ -777,15 +711,18 @@ class class_password_login_request(QMainWindow):
         con = sqlite3.connect('password.db')
         cur = con.cursor()
         c = 0
+        # Считываю данные с базы данных и проверя есть ли пользовтель в базе данных
         result = cur.execute("""SELECT * From users""").fetchall()
         for i in result:
             if login in i and password in i and name in i:
                 c += 1
         con.close()
+        # если пользователь есть то отрывается новое окно
         if cod == 'W68HP' and c > 0:
             self.w2 = Main_screen()
             self.w2.show()
             self.close()
+        # если пользователь ввел неправильно капчу то выходит ошибка и стираются все поля ввода
         elif cod != 'W68HP' and c > 0:
             question = QMessageBox()
             question.setWindowTitle('Запись')
@@ -797,7 +734,7 @@ class class_password_login_request(QMainWindow):
             self.login_input.setText('')
             self.entering_password.setText('')
             self.input_cod.setText('')
-
+        # в другом случае выходит ошибка
         else:
             question = QMessageBox()
             question.setWindowTitle('Запись')
@@ -835,14 +772,14 @@ class Completed_tasks(QMainWindow):
         super().__init__()
         f = io.StringIO(window_template)
         uic.loadUi(f, self)
+        # добовляю значания в sort_comboBox
         self.sort_comboBox.addItem('Без сортировки')
         self.sort_comboBox.addItem('По лексикографическому порядку')
         self.sort_comboBox.addItem('По категориям')
         self.sort_comboBox.addItem('По приоритету')
-        self.sort_comboBox.addItem('По кол-ву дней до дедлайна')
         self.back.clicked.connect(self.open_Main_screen)
+        # даю название окну
         self.setWindowTitle('Выполненые задания')
-
         self.updateButton.clicked.connect(self.fun_update)
         self.deleteButton.clicked.connect(self.fun_deleteButton)
         self.export_button.clicked.connect(self.fun_export_button)
@@ -856,14 +793,14 @@ class Completed_tasks(QMainWindow):
 
         if file_path:
             with open(file_path, mode="w", encoding='utf-8') as file:
-                writer = csv.writer(file)
+                file_writer = csv.writer(file, delimiter=",", lineterminator="\r")
                 con = sqlite3.connect('password.db')
                 cur = con.cursor()
                 result = cur.execute("""SELECT * FROM tasks""").fetchall()
                 result.insert(0, ["Задача", "Категория", "Приоритет", "Кол-во дней до дедлайна"])
 
                 for i in range(len(result)):
-                    writer.writerow(result[i])
+                    file_writer.writerow(result[i])
 
     def fun_deleteButton(self):
         '''
@@ -888,6 +825,15 @@ class Completed_tasks(QMainWindow):
             c.execute('DELETE FROM tasks;', )
             conn.commit()
             conn.close()
+            self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+            data = [["Задача", "Категория", "Приоритет", "Кол-во дней до дедлайна"]]
+            self.tableWidget.setRowCount(0)
+            self.tableWidget.setColumnCount(len(data[0]))
+            self.tableWidget.setHorizontalHeaderLabels(data[0])
+            for i in range(0, len(data)):
+                for j in range(len(data[i])):
+                    item = QTableWidgetItem(data[i][j])
+                    self.tableWidget.setItem(i - 1, j, item)
 
     def fun_update(self):
         '''
@@ -906,8 +852,6 @@ class Completed_tasks(QMainWindow):
                 for j in range(len(data[i])):
                     item = QTableWidgetItem(data[i][j])
                     self.tableWidget.setItem(i - 1, j, item)
-
-
         else:
             self.combo = self.sort_comboBox.currentText()
             self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
@@ -927,9 +871,8 @@ class Completed_tasks(QMainWindow):
                 elif self.combo == 'По категориям':
                     sort_sp = sorted(result[1:], key=lambda row: row[1], reverse=False)
                 elif self.combo == 'По приоритету':
-                    sort_sp = sorted(result[1:], key=lambda row: row[2], reverse=False)
-                elif self.combo == 'По кол-ву дней до дедлайна':
-                    sort_sp = sorted(result[1:], key=lambda row: int(row[3]), reverse=False)
+                    sort_sp = sorted(result[1:],
+                                     key=lambda x: 0 if x[2] == 'Низкий' else (1 if x[2] == 'Средний' else 2))
                 sort_sp.insert(0, result[0])
                 for i in range(1, len(sort_sp)):
                     for j in range(len(sort_sp[i])):
@@ -955,14 +898,14 @@ class Main_screen(QMainWindow):
         super().__init__()
         f = io.StringIO(main_window)
         uic.loadUi(f, self)
+        self.setLayout(QGridLayout())
         self.priority_combo.addItem("Низкий")
         self.priority_combo.addItem("Средний")
-        self.priority_combo.addItem("Высокий")
+        self.priority_combo.addItem("Βысокий")
         self.sorting.addItem('Без сортировки')
         self.sorting.addItem('По лексикографическому порядку')
         self.sorting.addItem('По категориям')
         self.sorting.addItem('По приоритету')
-        self.sorting.addItem('По кол-ву дней до дедлайна')
         self.setWindowTitle('Планировщик')
         self.add_an_entry.setFont(QFont('Добавить задачу', 12))
         self.updateButton.setFont(QFont('Обновить', 10))
@@ -1008,12 +951,13 @@ class Main_screen(QMainWindow):
 
         if file_path:
             with open(file_path, mode="w", encoding='utf-8') as file:
-                writer = csv.writer(file)
+                file_writer = csv.writer(file, delimiter=",", lineterminator="\r")
                 with open("records.csv", mode="r", encoding='utf-8') as f:
                     reader = csv.reader(f, delimiter=',', quoting=csv.QUOTE_NONE)
                     csv_data = list(reader)
                 for i in csv_data:
-                    writer.writerow(i)
+                    print(i)
+                    file_writer.writerow(i)
 
     def open_completed_tasks(self):
         '''
@@ -1132,6 +1076,10 @@ class Main_screen(QMainWindow):
             file_path = "records.csv"
             if os.path.exists(file_path):
                 os.remove(file_path)
+                with open(file_path, mode="a", encoding='utf-8') as w_file:
+                    file_writer = csv.writer(w_file, delimiter=",", lineterminator="\r")
+                    file_writer.writerow(["Задача", "Категория", "Приоритет", "Кол-во дней до дедлайна"])
+                    self.tableWidget.setRowCount(0)
 
     def create_table(self):
         '''
@@ -1166,9 +1114,7 @@ class Main_screen(QMainWindow):
             elif self.sort == 'По категориям':
                 sort_sp = sorted(data[1:], key=lambda row: row[1], reverse=False)
             elif self.sort == 'По приоритету':
-                sort_sp = sorted(data[1:], key=lambda row: row[2], reverse=False)
-            elif self.sort == 'По кол-ву дней до дедлайна':
-                sort_sp = sorted(data[1:], key=lambda row: int(row[3]), reverse=False)
+                sort_sp = sorted(data[1:], key=lambda x: 0 if x[2] == 'Низкий' else (1 if x[2] == 'Средний' else 2))
             sort_sp.insert(0, data[0])
             for i in range(1, len(sort_sp)):
                 for j in range(len(sort_sp[i])):
@@ -1200,6 +1146,13 @@ class Main_screen(QMainWindow):
             question.setIcon(QMessageBox.Information)
             question.setStandardButtons(QMessageBox.Ok)
             question.exec_()
+        elif self.category == '' and self.task == '':
+            question = QMessageBox()
+            question.setWindowTitle('Запись')
+            question.setText('Вы ввели не все поля.')
+            question.setIcon(QMessageBox.Information)
+            question.setStandardButtons(QMessageBox.Ok)
+            question.exec_()
         else:
             question = QMessageBox()
             question.setWindowTitle('Запись')
@@ -1215,9 +1168,18 @@ class Main_screen(QMainWindow):
         И при нажатии  кнопки ОК записывает данные в таблицу records.csv
         '''
         if btn.text() == 'OK':
-            with open("records.csv", mode='a', encoding='utf-8') as w_file:
-                file_writer = csv.writer(w_file, delimiter=",", lineterminator="\r")
-                file_writer.writerow([self.task, self.category, self.priority, self.difference_days])
+            if self.difference_days < 0:
+                with open("records.csv", mode='a', encoding='utf-8') as w_file:
+                    file_writer = csv.writer(w_file, delimiter=",", lineterminator="\r")
+                    file_writer.writerow([self.task, self.category, self.priority, 'дедлайн прошёл'])
+            elif self.difference_days == 0:
+                with open("records.csv", mode='a', encoding='utf-8') as w_file:
+                    file_writer = csv.writer(w_file, delimiter=",", lineterminator="\r")
+                    file_writer.writerow([self.task, self.category, self.priority, 'дедлайн сегодня'])
+            else:
+                with open("records.csv", mode='a', encoding='utf-8') as w_file:
+                    file_writer = csv.writer(w_file, delimiter=",", lineterminator="\r")
+                    file_writer.writerow([self.task, self.category, self.priority, self.difference_days])
         self.category_edit.setPlainText('')
         self.task_edit.setPlainText('')
 
